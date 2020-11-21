@@ -1,7 +1,7 @@
 <template>
   <div id="main">
     <Header title="个人中心"></Header>
-	<Login></Login>
+    <Login></Login>
     <TabBar></TabBar>
   </div>
 </template>
@@ -15,7 +15,7 @@ export default {
   components: {
     Header,
     TabBar,
-	Login
+    Login
   }
 };
 </script>

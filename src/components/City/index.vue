@@ -1,26 +1,32 @@
 <template>
-  <div class="city_body" >
-    <div class="city_list" ref= "city_list">
-      <div class="city_hot" ref= "city_hot">
+  <div class="city_body">
+    <div class="city_list" ref="city_list">
+      <div class="city_hot" ref="city_hot">
         <h2>热门城市</h2>
         <ul class="clearfix">
           <li v-for="data in hotdatalist" :key="data.id">
-			  {{data.nm}}
-		  </li>
+            {{ data.nm }}
+          </li>
         </ul>
       </div>
-      <div class="city_sort" ref= "city_sort">
+      <div class="city_sort" ref="city_sort">
         <div v-for="data in datalist" :key="data.index">
-          <h2 ref="h2">{{data.index}}</h2>
+          <h2 ref="h2">{{ data.index }}</h2>
           <ul>
-            <li v-for="data in data.list" :key="data.id">{{data.nm}}</li>
+            <li v-for="data in data.list" :key="data.id">{{ data.nm }}</li>
           </ul>
         </div>
       </div>
     </div>
     <div class="city_index">
       <ul>
-        <li v-for="(data,index) in datalist" :key="data.index" @touchstart="handleToIndex(index)">{{data.index}}</li>
+        <li
+          v-for="(data, index) in datalist"
+          :key="data.index"
+          @touchstart="handleToIndex(index)"
+        >
+          {{ data.index }}
+        </li>
       </ul>
     </div>
   </div>
@@ -29,62 +35,63 @@
 <script>
 export default {
   name: "City",
-  data(){
-	  return {
-		  datalist:[],
-		  hotdatalist:[
-			  {id:'1',nm:'北京',py:'beijing'},
-			  {id:'10',nm:'上海',py:'shanghai'},
-			  {id:'20',nm:'广州',py:'guangzhou'},
-			  {id:'30',nm:'深圳',py:'shenzhen'}
-			  ]
-	  }
+  data() {
+    return {
+      datalist: [],
+      hotdatalist: [
+        { id: "1", nm: "北京", py: "beijing" },
+        { id: "10", nm: "上海", py: "shanghai" },
+        { id: "20", nm: "广州", py: "guangzhou" },
+        { id: "30", nm: "深圳", py: "shenzhen" }
+      ]
+    };
   },
   mounted() {
-	  console.log(1111111111111)
-	  console.log("https://m.maizuo.com/gateway?k=8346595")
-  	this.axios.get("/dianying/cities.json").then((res)=>{
-		 // console.log(res.data.cts)
-		if(res.data.cts.length != 0){
-			this.datalist = this.handelCity(res.data.cts)
-		}
-	})
+    console.log(1111111111111);
+    console.log("https://m.maizuo.com/gateway?k=8346595");
+    this.axios.get("/dianying/cities.json").then(res => {
+      // console.log(res.data.cts)
+      if (res.data.cts.length != 0) {
+        this.datalist = this.handelCity(res.data.cts);
+      }
+    });
   },
-  methods:{
-	  handelCity(data){
-		  var letterArr = []
-		  for(var i = 65; i <= 90; i++){
-			  letterArr.push(String.fromCharCode(i))
-		  }
-		 // console.log(letterArr)
-		  
-		  var newList = []
-		   for(var j = 0; j < letterArr.length; j++){
-			  var  arr = data.filter(item=>item.py.substring(0,1) === letterArr[j].toLowerCase())
-			//  console.log(arr)
-			  if(arr.length > 0){
-				  
-				  newList.push({
-					  index:letterArr[j],
-					  list:arr
-				  })
-			  }
-		  } 
-		 // console.log(newList)
-		  return newList
-	  },
-	  handleToIndex(index){
-		  //点击右边索引值 找到对应左边的索引值  计算属性  ref可以得到
-		  //var h2 = this.$refs.city_sort.getElementsByTagName('h2')
-		  //console.log(h2[index].offsetTop)
-		 console.log(this.$refs.h2[index].offsetTop)
-		  this.$refs.city_list.scrollTop = this.$refs.h2[index].offsetTop;
-	  }
+  methods: {
+    handelCity(data) {
+      var letterArr = [];
+      for (var i = 65; i <= 90; i++) {
+        letterArr.push(String.fromCharCode(i));
+      }
+      // console.log(letterArr)
+
+      var newList = [];
+      for (var j = 0; j < letterArr.length; j++) {
+        var arr = data.filter(
+          item => item.py.substring(0, 1) === letterArr[j].toLowerCase()
+        );
+        //  console.log(arr)
+        if (arr.length > 0) {
+          newList.push({
+            index: letterArr[j],
+            list: arr
+          });
+        }
+      }
+      // console.log(newList)
+      return newList;
+    },
+    handleToIndex(index) {
+      //点击右边索引值 找到对应左边的索引值  计算属性  ref可以得到
+      //var h2 = this.$refs.city_sort.getElementsByTagName('h2')
+      //console.log(h2[index].offsetTop)
+      console.log(this.$refs.h2[index].offsetTop);
+      this.$refs.city_list.scrollTop = this.$refs.h2[index].offsetTop;
+    }
   }
 };
 </script>
 
-<style >
+<style>
 #content .city_body {
   margin-top: 45px;
   display: flex;

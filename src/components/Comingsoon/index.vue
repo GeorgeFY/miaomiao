@@ -2,12 +2,17 @@
   <div class="movie_body">
     <ul>
       <li v-for="data in datalist" :key="data.id">
-        <div class="pic_show"><img :src="data.img | setWH('128.180')" /></div>
+        <div class="pic_show"><img :src="data.img | SetWH('128.180')" /></div>
         <div class="info_list">
-          <h2>{{data.nm}} <img v-if="data.version" src="@/assets/maxs.png" alt=""></h2>
-          <p><span class="person">{{data.wish}}</span> 人想看</p>
-          <p>主演: {{data.star}}</p>
-          <p>{{data.comingTitle}}上映</p>
+          <h2>
+            {{ data.nm }}
+            <img v-if="data.version" src="@/assets/maxs.png" alt="" />
+          </h2>
+          <p>
+            <span class="person">{{ data.wish }}</span> 人想看
+          </p>
+          <p>主演: {{ data.star }}</p>
+          <p>{{ data.comingTitle }}上映</p>
         </div>
         <div class="btn_pre">
           预售
@@ -20,18 +25,22 @@
 <script>
 export default {
   name: "Comingsoon",
-  data(){
-  	  return {
-  		  datalist:[]
-  	  }
+  data() {
+    return {
+      datalist: []
+    };
   },
   mounted() {
-  	this.axios.get("/ajax/comingList?ci=57&token=&limit=10&optimus_uuid=3BD00ED02B9311EB83CBCBE2BA8F0E0C6093BDE586664C92BC95CB0254E22EC9&optimus_risk_level=71&optimus_code=10").then((res)=>{
-  		console.log(11111111111111111)
-		console.log(res.data)
-  		this.datalist = res.data.coming
-  		//this.AlldataId = res.data.movieIds
-  	})
+    this.axios
+      .get(
+        "/ajax/comingList?ci=57&token=&limit=10&optimus_uuid=3BD00ED02B9311EB83CBCBE2BA8F0E0C6093BDE586664C92BC95CB0254E22EC9&optimus_risk_level=71&optimus_code=10"
+      )
+      .then(res => {
+        console.log(11111111111111111);
+        console.log(res.data);
+        this.datalist = res.data.coming;
+        //this.AlldataId = res.data.movieIds
+      });
   }
 };
 </script>

@@ -1,13 +1,12 @@
 <template>
   <div id="main">
     <Header title="喵喵影院"></Header>
-	<div id="content">
-		<CinemaHeader></CinemaHeader>
-		<keep-alive>
-			<CinemaList></CinemaList>
-		</keep-alive>
-		
-	</div>
+    <div id="content">
+      <CinemaHeader></CinemaHeader>
+      <keep-alive>
+        <CinemaList></CinemaList>
+      </keep-alive>
+    </div>
     <TabBar></TabBar>
   </div>
 </template>
@@ -22,8 +21,8 @@ export default {
   components: {
     Header,
     TabBar,
-	CinemaHeader,
-	CinemaList
+    CinemaHeader,
+    CinemaList
   }
 };
 </script>

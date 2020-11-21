@@ -3,18 +3,21 @@
     <Header title="喵喵电影"></Header>
     <div id="content">
       <div class="movie_menu">
-		  <router-link tag="div" to="/movie/city" class="city_name">
-			  <span>北京</span><i class="iconfont icon-lower-triangle"></i>
-		  </router-link>
-		  <div class="hot_swtich">
-			  <router-link tag="div" to="/movie/nowPlaying" class="hot_item">正在热映</router-link>
-			  <router-link tag="div" to="/movie/comingSoon" class="hot_item">即将上映</router-link>
-		  </div>
-		  <router-link tag="div" to="/movie/search" class="search_entry">
-			  <i class="iconfont icon-sousuo"></i>
-		  </router-link>
-		  
-	  </div>
+        <router-link tag="div" to="/movie/city" class="city_name">
+          <span>北京</span><i class="iconfont icon-lower-triangle"></i>
+        </router-link>
+        <div class="hot_swtich">
+          <router-link tag="div" to="/movie/nowPlaying" class="hot_item"
+            >正在热映</router-link
+          >
+          <router-link tag="div" to="/movie/comingSoon" class="hot_item"
+            >即将上映</router-link
+          >
+        </div>
+        <router-link tag="div" to="/movie/search" class="search_entry">
+          <i class="iconfont icon-sousuo"></i>
+        </router-link>
+      </div>
       <keep-alive>
         <router-view></router-view>
       </keep-alive>
@@ -55,9 +58,9 @@ export default {
   color: #ef4238;
   border-bottom: 2px #ef4238 solid;
 }
-.movie_menu .city_name.router-link-active{
+.movie_menu .city_name.router-link-active {
   color: #ef4238;
-  border-bottom: 2px #ef4238 solid;	
+  border-bottom: 2px #ef4238 solid;
 }
 .movie_menu .hot_swtich {
   display: flex;
