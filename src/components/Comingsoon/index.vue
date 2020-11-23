@@ -1,24 +1,27 @@
 <template>
   <div class="movie_body">
-    <ul>
-      <li v-for="data in datalist" :key="data.id">
-        <div class="pic_show"><img :src="data.img | SetWH('128.180')" /></div>
-        <div class="info_list">
-          <h2>
-            {{ data.nm }}
-            <img v-if="data.version" src="@/assets/maxs.png" alt="" />
-          </h2>
-          <p>
-            <span class="person">{{ data.wish }}</span> 人想看
-          </p>
-          <p>主演: {{ data.star }}</p>
-          <p>{{ data.comingTitle }}上映</p>
-        </div>
-        <div class="btn_pre">
-          预售
-        </div>
-      </li>
-    </ul>
+	  <Loading v-if="isLoading"></Loading>
+	<Scroll v-else>
+		<ul>
+		  <li v-for="data in datalist" :key="data.id">
+		    <div class="pic_show"><img :src="data.img | SetWH('128.180')" /></div>
+		    <div class="info_list">
+		      <h2>
+		        {{ data.nm }}
+		        <img v-if="data.version" src="@/assets/maxs.png" alt="" />
+		      </h2>
+		      <p>
+		        <span class="person">{{ data.wish }}</span> 人想看
+		      </p>
+		      <p>主演: {{ data.star }}</p>
+		      <p>{{ data.comingTitle }}上映</p>
+		    </div>
+		    <div class="btn_pre">
+		      预售
+		    </div>
+		  </li>
+		</ul>
+	</Scroll>
   </div>
 </template>
 
@@ -27,7 +30,8 @@ export default {
   name: "Comingsoon",
   data() {
     return {
-      datalist: []
+      datalist: [],
+	  isLoading:true
     };
   },
   mounted() {
@@ -39,6 +43,7 @@ export default {
         console.log(11111111111111111);
         console.log(res.data);
         this.datalist = res.data.coming;
+		this.isLoading = false
         //this.AlldataId = res.data.movieIds
       });
   }
