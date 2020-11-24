@@ -5,8 +5,11 @@ import store from "./store";
 import axios from "axios";
 import Scroll from "@/components/Better-Scroll";
 import Loading from "@/components/Loading";
+/* import Swiper from "swiper" 
+import "swiper/dist/css/swiper.min.css"*/
 
 Vue.prototype.axios = axios;
+/* Vue.prototype.Swiper = Swiper; */
 Vue.component("Scroll", Scroll);
 Vue.component("Loading", Loading);
 Vue.filter("SetWH", (url, arg) => {

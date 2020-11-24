@@ -10,7 +10,7 @@
       <h3>电影/电视剧/综艺</h3>
       <ul>
         <li v-for="data in movieList" :key="data.id">
-          <div class="img"><img :src="data.img | SetWH('128.180')" /></div>
+          <div class="img" @click="handleToDetail(data.id)"><img :src="data.img | SetWH('128.180')" /></div>
           <div class="info">
             <p>
               <span>{{ data.nm }}</span
@@ -40,7 +40,11 @@ export default {
       if (typeof this.source === "function") {
         this.source("终止请求");
       }
-    }
+    },
+	handleToDetail(MovieId) {
+	  //console.log(MovieId);
+	  this.$router.push("/movie/detail/1/"+MovieId)
+	}
   },
   watch: {
     message(mValue) {

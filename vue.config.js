@@ -9,10 +9,10 @@ module.exports = {
         target: "https://m.maoyan.com",
         changeOrigin: true
       },
-	  "/api": {
-	    target: "http://api.map.baidu.com",
-	    changeOrigin: true
-	  }
+      "/api": {
+        target: "http://api.map.baidu.com",
+        changeOrigin: true
+      }
     }
   }
 };

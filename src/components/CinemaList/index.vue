@@ -1,27 +1,27 @@
 <template>
   <div class="cinema_body">
-	  <Loading v-if="isLoading"></Loading>
-	<Scroll>
-		<ul>
-		  <li v-for="data in CinemaList" :key="data.cinemaId">
-		    <div>
-		      <span>{{ data.name }}</span>
-		
-		      <span class="price"
-		        >{{ getPrice(data.lowPrice) }}<span class="q">元起</span></span
-		      >
-		    </div>
-		    <div class="address">
-		      <span class="line-ellipsis">{{ data.address }}</span>
-		      <span>{{ getDistance(data.Distance) }}km</span>
-		    </div>
-		    <div class="card">
-		      <div>小吃</div>
-		      <div>折扣卡</div>
-		    </div>
-		  </li>
-		</ul>
-	</Scroll>
+    <Loading v-if="isLoading"></Loading>
+    <Scroll>
+      <ul>
+        <li v-for="data in CinemaList" :key="data.cinemaId">
+          <div>
+            <span>{{ data.name }}</span>
+
+            <span class="price"
+              >{{ getPrice(data.lowPrice) }}<span class="q">元起</span></span
+            >
+          </div>
+          <div class="address">
+            <span class="line-ellipsis">{{ data.address }}</span>
+            <span>{{ getDistance(data.Distance) }}km</span>
+          </div>
+          <div class="card">
+            <div>小吃</div>
+            <div>折扣卡</div>
+          </div>
+        </li>
+      </ul>
+    </Scroll>
   </div>
 </template>
 
@@ -31,17 +31,22 @@ export default {
   data() {
     return {
       CinemaList: [],
-	  isLoading:true,
-	  prevCityId : -1
+      isLoading: true,
+      prevCityId: -1
     };
   },
   activated() {
-	  var cityId = this.$store.state.city.id;
-	   if( this.prevCityId === cityId ){ return; }
-	    this.isLoading = true;
-		
+    var cityId = this.$store.state.city.id;
+    if (this.prevCityId === cityId) {
+      return;
+    }
+    this.isLoading = true;
+
     this.axios({
-      url: "https://m.maizuo.com/gateway?cityId="+110100+"&ticketFlag=1&k=391939",
+      url:
+        "https://m.maizuo.com/gateway?cityId=" +
+        110100 +
+        "&ticketFlag=1&k=391939",
       headers: {
         "X-Client-Info":
           '{"a":"3000","ch":"1002","v":"5.0.4","e":"1605514300459406881849345","bc":"110100"}',
@@ -50,7 +55,7 @@ export default {
     }).then(res => {
       //console.log(res.data)
       this.CinemaList = res.data.data.cinemas;
-	  this.isLoading = false
+      this.isLoading = false;
     });
   },
   methods: {

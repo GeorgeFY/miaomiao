@@ -1,32 +1,34 @@
 <template>
   <div class="movie_body" ref="movie_body">
-	<Loading v-if="isLoading"></Loading>
-	<Scroll v-else :handelToScroll="handelToScroll" :handelToTouchEnd="handelToTouchEnd">
-	  <ul ref="ul">
-		<li v-for="data in datalist" :key="data.id">
-		  <div class="pic_show" @click="handleToDetail">
-			<img :src="data.img | SetWH('128.180')" />
-		  </div>
-		  <div class="info_list" @click="handleToDetail">
-			<h2>
-			  {{ data.nm }}
-			  <img v-if="data.version" src="@/assets/maxs.png" alt="" />
-			</h2>
-			<p>
-			  观众评 <span class="grade">{{ data.sc }}</span>
-			</p>
-			<p>主演: {{ data.star }}</p>
-			<p>{{ data.showInfo }}</p>
-		  </div>
-		  <div class="btn_mall">
-			购票
-		  </div>
-		</li>
-		<li class="pulldown">{{ pullDownMsg }}</li>
-	  </ul>
-	</Scroll>
-
-    
+    <Loading v-if="isLoading"></Loading>
+    <Scroll
+      v-else
+      :handelToScroll="handelToScroll"
+      :handelToTouchEnd="handelToTouchEnd"
+    >
+      <ul ref="ul">
+        <li v-for="data in datalist" :key="data.id">
+          <div class="pic_show" @click="handleToDetail(data.id)">
+            <img :src="data.img | SetWH('128.180')" />
+          </div>
+          <div class="info_list" @click="handleToDetail(data.id)">
+            <h2>
+              {{ data.nm }}
+              <img v-if="data.version" src="@/assets/maxs.png" alt="" />
+            </h2>
+            <p>
+              观众评 <span class="grade">{{ data.sc }}</span>
+            </p>
+            <p>主演: {{ data.star }}</p>
+            <p>{{ data.showInfo }}</p>
+          </div>
+          <div class="btn_mall">
+            购票
+          </div>
+        </li>
+        <li class="pulldown">{{ pullDownMsg }}</li>
+      </ul>
+    </Scroll>
   </div>
 </template>
 
@@ -44,12 +46,13 @@ export default {
   mounted() {
 	  //console.log(this.$refs.movie_body.clientHeight,"movie-body")
 	  //console.log(this.$refs.ul.clientHeight,"ul")
+	  console.log("yuan")
     this.axios
       .get(
         "/ajax/movieOnInfoList?token=&optimus_uuid=3BD00ED02B9311EB83CBCBE2BA8F0E0C6093BDE586664C92BC95CB0254E22EC9&optimus_risk_level=71&optimus_code=10"
       )
       .then(res => {
-        // console.log(res.data);
+         console.log(res.data);
         this.datalist = res.data.movieList;
         this.AlldataId = res.data.movieIds;
 		this.isLoading = false
@@ -90,22 +93,23 @@ export default {
 						  .then(res => {
 							 //console.log(res.data);
 						   this.pullDownMsg="更新成功"
-						   
-						   
+
+
 						   this.datalist =this.datalist.concat(res.data.coming);
 							   //this.AlldataId = res.data.movieIds;
 							   //console.log(this.datalist)
 							this.pullDownMsg=""
-						   
+
 						  });
 					}
-				}) 
+				})
 			})*/
       });
   },
   methods: {
-    handleToDetail() {
-      console.log("changetoDetail");
+    handleToDetail(MovieId) {
+      //console.log(MovieId);
+	  this.$router.push("/movie/detail/1/"+MovieId)
     },
 	handelToScroll(pos){
 		var ul = this.$refs.movie_body.getElementsByTagName('ul')
@@ -116,7 +120,7 @@ export default {
 	},
 	handelToTouchEnd(pos){
 		var ul = this.$refs.movie_body.getElementsByTagName('ul')
-		console.log(ul.[0].clientHeight)
+		// console.log(ul.[0].clientHeight)
 		if(-pos.y > ul.[0].clientHeight-this.$refs.movie_body.clientHeight){
 			console.log("500begin")
 			this.axios
@@ -127,7 +131,7 @@ export default {
 			   this.pullDownMsg="更新成功"
 			   this.datalist =this.datalist.concat(res.data.coming);
 				this.pullDownMsg=""
-			   
+
 			  });
 		}
 	}
