@@ -7,7 +7,13 @@
       </Header>
       <div id="content" class="contentDetail">
         <div class="detail_list">
-          <div class="detail_list_bg" :style="{'background-image' : 'url('+ datalist.img.replace(/w\.h/,'148.208') +')' }"></div>
+          <div
+            class="detail_list_bg"
+            :style="{
+              'background-image':
+                'url(' + datalist.img.replace(/w\.h/, '148.208') + ')'
+            }"
+          ></div>
           <div class="detail_list_filter"></div>
           <div class="detail_list_content">
             <div class="detail_list_img">
@@ -26,13 +32,17 @@
         <div class="detail_intro">
           <p>{{ datalist.dra }}</p>
         </div>
-        <Swiper perview= "4" class="actorSwiper" myclass = "actorSwiper">
-			<div class="swiper-slide" v-for="(data,index) in datalist.photos" :key="index">
-			  <div class="actorPic">
-			    <img :src="data | SetWH('140.127')">
-			  </div>
-			</div>
-		</Swiper>
+        <Swiper perview="4" class="actorSwiper" myclass="actorSwiper">
+          <div
+            class="swiper-slide"
+            v-for="(data, index) in datalist.photos"
+            :key="index"
+          >
+            <div class="actorPic">
+              <img :src="data | SetWH('140.127')" />
+            </div>
+          </div>
+        </Swiper>
       </div>
     </div>
   </Scroll>
@@ -40,12 +50,12 @@
 
 <script>
 import Header from "@/components/Header";
-import Swiper from "@/components/Swiper"
+import Swiper from "@/components/Swiper";
 export default {
   name: "Detail",
   components: {
     Header,
-	Swiper
+    Swiper
   },
   data() {
     return {
@@ -67,7 +77,7 @@ export default {
       .then(res => {
         console.log(res.data.detailMovie);
         this.datalist = res.data.detailMovie;
-		console.log(this.datalist)
+        console.log(this.datalist);
         this.isLoading = false;
       });
   },
@@ -171,9 +181,9 @@ export default {
 #content .detail_player {
   margin: 20px;
 }
-.actorPic{
-	width: 100%;
-	height: 60px;
-	overflow: hidden;
+.actorPic {
+  width: 100%;
+  height: 60px;
+  overflow: hidden;
 }
 </style>

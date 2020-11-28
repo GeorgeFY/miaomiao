@@ -60,7 +60,7 @@ export default {
   },
   methods: {
     getDistance(num) {
-      console.log(num);
+      // console.log(num);
       var numStr = num.toString();
       if (numStr.length > 4) {
         numStr = numStr.substring(0, 4);
@@ -68,7 +68,7 @@ export default {
       return numStr;
     },
     getPrice(num) {
-      console.log(num);
+      // console.log(num);
       var numStr = num.toString();
       if (numStr.length > 2) {
         numStr = numStr.substring(0, 2);

@@ -19,7 +19,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$refs.wrapper.clientHeight, "wrapper");
+    // console.log(this.$refs.wrapper.clientHeight, "wrapper");
     setTimeout(() => {
       var scroll = this._initScroll();
       //scroll现在是一个局部对象，给this添加一个属性scroll

@@ -3,8 +3,8 @@
     <h2>{{ title }}</h2>
     <p>{{ content }}</p>
     <div>
-      <div @click="handelCancel">{{ cancel }}</div>
-      <div @click="handelOk">{{ ok }}</div>
+      <div v-if="cancel" @click="handelCancel">{{ cancel }}</div>
+      <div v-if="ok" @click="handelOk">{{ ok }}</div>
     </div>
   </div>
 </template>
