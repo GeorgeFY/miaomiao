@@ -7,6 +7,10 @@
 			<div>
 				<input class="login_text" v-model="password" type="password" placeHolder="请输入您的密码" />
 			</div>
+			<div>
+				<input class="login_text" v-model="verifyImg" type="text" placeHolder="请输入您的验证码" />
+				<img @click="handeltoVerifyImg" src="/users/verifyImg">
+			</div>
 			<div class="login_btn">
 				<input type="submit" value="登录" @click="handelToLogin()" />
 			</div>
@@ -25,14 +29,16 @@ import {messageBox} from '@/components/JS'
 		data(){
 			return{
 				username:'',
-				password:''
+				password:'',
+				verifyImg:''
 			}
 		},
 		methods:{
 			handelToLogin(){
 				this.axios.post('/users/login',{
 					username:this.username,
-					password:this.password
+					password:this.password,
+					verifyImg:this.verifyImg
 				}).then((res)=>{
 					var  status = res.data.status
 					var  This = this
@@ -48,12 +54,15 @@ import {messageBox} from '@/components/JS'
 					}else{
 						messageBox({
 							title:'登入',
-							content:'登入失败',
+							content:res.data.msg,
 							ok:'确定'
 						})
 					}
 					console.log(res)
 				})
+			},
+			handeltoVerifyImg(ev){
+				ev.target.src = '/users/verifyImg?'+Math.random();
 			}
 		}
 	}

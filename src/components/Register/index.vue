@@ -1,7 +1,7 @@
 <template>
 	<div class="register_body">
 		<div class="register_email">
-			邮箱: <input type="text" class="register_text" v-model="email"> <button @click="handelToVerify()">发送验证码</button>
+			邮箱: <input type="text" class="register_text" v-model="email"> <button :disabled="disable" @click="handelToVerify()">{{verifyInfo}}</button>
 		</div>
 		<div>
 			用户名: <input type="text" class="register_text" v-model="username">
@@ -35,18 +35,25 @@
 				username:'',
 				password:'',
 				password2:'',
-				verify:''
+				verify:'',
+				verifyInfo:'发送验证码',
+				disable:false
 			}
 		},
 		methods:{
 			handelToVerify(){
+				if(this.disable){return;}
 				this.axios.get('/users/verify?email='+this.email).then((res)=>{
 					var status = res.data.status;
+					var This = this;
 					if(status === 0){
 						messageBox({
 							title:"验证码",
 							content:"验证码已发送",
-							ok:"确定"
+							ok:"确定",
+							handelOk(){
+								This.countDown();
+							}
 						})
 					}else{
 						messageBox({
@@ -83,6 +90,22 @@
 						})
 					}
 				})
+			},
+			countDown(){
+				this.disable = true;
+				var count = 60;
+				var timerId = setInterval(()=>{
+					count--;
+					this.verifyInfo = '剩余' + count + '秒';
+					
+					if(count === 0){
+						this.disable = false;
+						this.verifyInfo = '请发送验证码';
+						count = 60;
+						clearInterval(timerId)
+					}
+				},1000)
+				console.log(timerId,"yuanfang")
 			}
 		}
 	}
